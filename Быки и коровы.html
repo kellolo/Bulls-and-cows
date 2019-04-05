@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		//var gen = [1, 2, 3, 4];
+
+		var gen = function () {
+			let arr = [];
+			
+			while (arr.length < 4) {
+				let arrItem = Math.floor (Math.random () * 10);
+				if (arr.indexOf(arrItem) < 0) {
+					arr.push(arrItem);
+				}
+			}
+			console.log(arr);
+			return arr;
+		};
+
+		var check = function (number, task) {
+			//console.log(task);
+			let player = [];
+			let playerEl;
+
+			for (let i = 0; i < 4; i++) {
+				playerEl = parseInt(number.substr(i, 1));
+				player.push(playerEl);
+			}
+
+			let bulls = 0;
+			let cows = 0;
+
+			for (let i = 0; i < 4; i++) {
+				if (player[i] == task[i]) {
+					bulls++;
+				} else if (task.indexOf(player[i]) >= 0) {
+					cows++;
+				}
+			}
+			console.log('Вариант смертного: ' + player);
+			console.log('Количество быков: ' + bulls);
+			console.log('Количество коров: ' + cows);
+			if (bulls == 4) {
+				alert ('Игра окончена, смертный... \nты победил в этот раз. \n Загаданное число: ' + task.join());
+				return true;
+			}
+		};
+
+		var game = function () {
+			let arr = gen ();
+			console.log ('Я загадал число, кожанный мешок! Угадай его!');
+			let end = false;
+			let count = 10;
+			while (end != true) {
+				if (count == 0) {
+					alert ('Hasta la vista, baby! You loose!');
+					alert ('Загаданное число: ' + arr);
+					break;
+				} else {
+					let num = prompt ('До торжества Искусственного разума осталось ' + count + ' ходов! Пхахахахах!');
+					count--;
+					end = check(num, arr);
+				}
+			}
+		};
+
+		game ();
+	</script>
+</body>
+</html>
